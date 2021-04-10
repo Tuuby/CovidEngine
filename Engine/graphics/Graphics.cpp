@@ -30,10 +30,24 @@ SDL_Texture* Graphics::loadTexture(const std::filesystem::path &file, SDL_Render
     return texture;
 }
 
-SDL_Texture* Graphics::textToTexture(const std::string &message, const std::filesystem::path &fontFile, SDL_Color, int fontSize, SDL_Renderer *renderer) {
+std::shared_ptr<SDL_Texture> Graphics::textToTexture(const std::string &message, const std::filesystem::path &fontFile, SDL_Color color, int fontSize, SDL_Renderer *renderer) {
     auto font = std::unique_ptr<TTF_Font, decltype(&TTF_CloseFont)>(TTF_OpenFont(fontFile.string().c_str(), fontSize), TTF_CloseFont);
-    if (font == nullptr) {
+    if (!font) {
         logSDLError(std::cerr, "TTF_OpenFont");
         return nullptr;
     }
+
+    auto surface = std::unique_ptr<SDL_Surface, decltype(&SDL_FreeSurface)>(TTF_RenderText_Blended(font.get(), message.c_str(), color), SDL_FreeSurface);
+    if (!surface) {
+        logSDLError(std::cerr, "TTF_RenderText");
+        return nullptr;
+    }
+
+    auto texture = std::shared_ptr<SDL_Texture>(SDL_CreateTextureFromSurface(renderer, surface.get()), SDL_DestroyTexture);
+    if (!texture) {
+        logSDLError(std::cerr, "CreateTexture");
+        return nullptr;
+    }
+
+    return texture;
 }
