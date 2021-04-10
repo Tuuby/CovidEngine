@@ -21,3 +21,19 @@ void Graphics::renderTexture(SDL_Texture *texture, SDL_Renderer *renderer, int x
     }
     renderTexture(texture, renderer, targetArea, sourceSection);
 }
+
+SDL_Texture* Graphics::loadTexture(const std::filesystem::path &file, SDL_Renderer *renderer) {
+    SDL_Texture *texture = IMG_LoadTexture(renderer, file.string().c_str());
+    if (texture == nullptr) {
+        logSDLError(std::cerr, "LoadTexture");
+    }
+    return texture;
+}
+
+SDL_Texture* Graphics::textToTexture(const std::string &message, const std::filesystem::path &fontFile, SDL_Color, int fontSize, SDL_Renderer *renderer) {
+    auto font = std::unique_ptr<TTF_Font, decltype(&TTF_CloseFont)>(TTF_OpenFont(fontFile.string().c_str(), fontSize), TTF_CloseFont);
+    if (font == nullptr) {
+        logSDLError(std::cerr, "TTF_OpenFont");
+        return nullptr;
+    }
+}
