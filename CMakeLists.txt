@@ -5,7 +5,7 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR})
 list(APPEND CMAKE_PREFIX_PATH ${CMAKE_BINARY_DIR})
 
 set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${SDLTest_SOURCE_DIR}/bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${GameEngine_SOURCE_DIR}/bin)
 
 if(NOT EXISTS "${CMAKE_BINARY_DIR}/conan.cmake")
     message(STATUS "Downloading conan.cmake from https://github.com/conan-io/cmake-conan")
@@ -28,7 +28,8 @@ find_package(sdl2)
 find_package(sdl2_image)
 find_package(sdl2_ttf)
 
-add_executable(GameEngine App/main.cpp Engine/graphics/WindowManager.cpp Engine/graphics/WindowManager.h Engine/CovidEngine.h Engine/graphics/Graphics.cpp Engine/graphics/Graphics.h)
+add_executable(GameEngine App/main.cpp Engine/graphics/WindowManager.cpp Engine/graphics/WindowManager.h Engine/CovidEngine.h Engine/graphics/Graphics.cpp Engine/graphics/Graphics.h Engine/engine/GameLoop.cpp Engine/engine/GameLoop.h)
+add_executable(GameLoopTest App/test/gameLoopTest.cpp  Engine/engine/GameLoop.cpp Engine/engine/GameLoop.h)
 
 include_directories(ErrorHandling)
 
