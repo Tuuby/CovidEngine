@@ -24,20 +24,22 @@ void GameLoop::update() {
 
 void GameLoop::render() {
     int fps = 0;
-    long long lastFpsCheck = currentMicroTime();
+    auto lastFpsTime = gameClock::now();
+
+    std::cout << "Target Time: " << targetTime << std::endl;
 
     while (running) {
-        long long currentTime = currentMicroTime();
+        auto const frameStartTime = gameClock::now();
 
         mutex.lock();
         //std::cout << "Gameloop rendered!" << std::endl;
         mutex.unlock();
 
         fps++;
-        if (currentMicroTime() >= lastFpsCheck + 1000000) {
+        if (gameClock::now() >= lastFpsTime + seconds(1)) {
             std::cout << fps << "fps" << std::endl;
             fps = 0;
-            lastFpsCheck = currentMicroTime();
+            lastFpsTime = gameClock::now();
         }
 
         auto frameDuration = gameClock::now() - frameStartTime;
