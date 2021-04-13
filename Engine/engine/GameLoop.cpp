@@ -48,8 +48,3 @@ void GameLoop::render() {
         }
     }
 }
-
-long long GameLoop::currentMicroTime() {
-    auto nano_since_epoch = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count();
-    return nano_since_epoch;
-}

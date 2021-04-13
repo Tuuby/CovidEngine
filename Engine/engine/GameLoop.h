@@ -24,7 +24,6 @@ private:
     std::thread renderThread;
     std::thread updateThread;
 
-    static long long currentMicroTime();
     void update();
     void render();
 public:
