@@ -27,4 +27,10 @@ SDL_Texture *ImageResource::getTexture() {
     return texture;
 }
 
+ImageResource::ImageResource() {
+    this->renderer = nullptr;
+    this->file = "";
+    this->texture = nullptr;
+}
+
 

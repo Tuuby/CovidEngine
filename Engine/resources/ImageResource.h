@@ -16,6 +16,7 @@ private:
     std::filesystem::path file;
     SDL_Renderer *renderer;
 public:
+    ImageResource();
     ImageResource(std::filesystem::path *file, SDL_Renderer *renderer);
     ~ImageResource();
     SDL_Texture* getTexture();
