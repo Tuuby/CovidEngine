@@ -28,7 +28,7 @@ find_package(sdl2)
 find_package(sdl2_image)
 find_package(sdl2_ttf)
 
-add_executable(GameEngine App/main.cpp Engine/graphics/WindowManager.cpp Engine/graphics/WindowManager.h Engine/CovidEngine.h Engine/graphics/Graphics.cpp Engine/graphics/Graphics.h Engine/engine/GameLoop.cpp Engine/engine/GameLoop.h)
+add_executable(GameEngine App/main.cpp Engine/graphics/WindowManager.cpp Engine/graphics/WindowManager.h Engine/CovidEngine.h Engine/graphics/Graphics.cpp Engine/graphics/Graphics.h Engine/engine/GameLoop.cpp Engine/engine/GameLoop.h Engine/graphics/Animation.cpp Engine/graphics/Animation.h Engine/resources/ImageResource.cpp Engine/resources/ImageResource.h)
 add_executable(GameLoopTest App/test/gameLoopTest.cpp  Engine/engine/GameLoop.cpp Engine/engine/GameLoop.h)
 
 include_directories(ErrorHandling)
