@@ -18,13 +18,36 @@ GameLoop::~GameLoop() {
 void GameLoop::update() {
     while (running) {
         std::lock_guard<std::mutex> locker(mutex);
-        std::cout << "Gameloop updated!" << std::endl;
+        //std::cout << "Gameloop updated!" << std::endl;
     }
 }
 
 void GameLoop::render() {
+    int fps = 0;
+    long long lastFpsCheck = currentMicroTime();
+
     while (running) {
-        std::lock_guard<std::mutex> locker(mutex);
-        std::cout << "Gameloop rendered!" << std::endl;
+        long long currentTime = currentMicroTime();
+
+        mutex.lock();
+        //std::cout << "Gameloop rendered!" << std::endl;
+        mutex.unlock();
+
+        fps++;
+        if (currentMicroTime() >= lastFpsCheck + 1000000) {
+            std::cout << fps << "fps" << std::endl;
+            fps = 0;
+            lastFpsCheck = currentMicroTime();
+        }
+
+        long long timeTaken = currentMicroTime() - currentTime;
+        if (targetTime > timeTaken) {
+            std::this_thread::sleep_for(std::chrono::microseconds(targetTime - timeTaken));
+        }
     }
+}
+
+long long GameLoop::currentMicroTime() {
+    auto nano_since_epoch = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+    return nano_since_epoch;
 }

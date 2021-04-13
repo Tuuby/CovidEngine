@@ -19,7 +19,7 @@ int main() {
     do {
         t1 = std::chrono::high_resolution_clock::now();
         seconds = std::chrono::duration_cast<std::chrono::seconds>(t1 - t0);
-    } while (seconds.count() <= 15);
+    } while (seconds.count() <= 5);
 
     gameLoop.quit();
 

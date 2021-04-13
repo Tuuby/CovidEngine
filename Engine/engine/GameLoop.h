@@ -8,14 +8,19 @@
 #include <mutex>
 #include <thread>
 #include <iostream>
+#include <chrono>
 
 class GameLoop {
 private:
+    const int targetFPS = 144;
+    const int targetTime = 1000000 / targetFPS;
+
     volatile bool running;
     std::mutex mutex;
     std::thread renderThread;
     std::thread updateThread;
 
+    static long long currentMicroTime();
     void update();
     void render();
 public:
