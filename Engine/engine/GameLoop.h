@@ -10,10 +10,14 @@
 #include <iostream>
 #include <chrono>
 
+using gameClock = std::chrono::high_resolution_clock;
+using nanos = std::chrono::nanoseconds;
+using seconds = std::chrono::seconds;
+
 class GameLoop {
 private:
-    const int targetFPS = 144;
-    const int targetTime = 1000000 / targetFPS;
+    const int targetFPS = 60;
+    const nanos targetTime = nanos(seconds(1)) / targetFPS;
 
     volatile bool running;
     std::mutex mutex;

@@ -40,14 +40,16 @@ void GameLoop::render() {
             lastFpsCheck = currentMicroTime();
         }
 
-        long long timeTaken = currentMicroTime() - currentTime;
-        if (targetTime > timeTaken) {
-            std::this_thread::sleep_for(std::chrono::microseconds(targetTime - timeTaken));
+        auto frameDuration = gameClock::now() - frameStartTime;
+
+        while (targetTime > frameDuration) {
+            // Do fuck all
+            frameDuration = gameClock::now() - frameStartTime;
         }
     }
 }
 
 long long GameLoop::currentMicroTime() {
-    auto nano_since_epoch = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+    auto nano_since_epoch = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count();
     return nano_since_epoch;
 }
