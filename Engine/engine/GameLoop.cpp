@@ -26,8 +26,6 @@ void GameLoop::render() {
     int fps = 0;
     auto lastFpsTime = gameClock::now();
 
-    std::cout << "Target Time: " << targetTime << std::endl;
-
     while (running) {
         auto const frameStartTime = gameClock::now();
 

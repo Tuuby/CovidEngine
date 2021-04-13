@@ -16,7 +16,7 @@ using seconds = std::chrono::seconds;
 
 class GameLoop {
 private:
-    const int targetFPS = 60;
+    const int targetFPS = 144;
     const nanos targetTime = nanos(seconds(1)) / targetFPS;
 
     volatile bool running;
