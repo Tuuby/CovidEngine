@@ -22,6 +22,7 @@ public:
     bool loop = true;
     int fps;
 
+    Animation();
     Animation(int frameCount, int fps);
     ~Animation();
     void play();

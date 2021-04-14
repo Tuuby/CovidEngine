@@ -37,3 +37,11 @@ void Animation::play() {
 ImageResource *Animation::getImage() const {
     return &frames[currentFrame];
 }
+
+Animation::Animation() {
+    currentFrame = 0;
+    frameCount = 0;
+    lastFrameTime = gameClock::now();
+    frames = nullptr;
+    fps = 8;
+}
